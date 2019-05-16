@@ -1,3 +1,4 @@
+import ChartLegend from "./ChartLegend";
 /**
  * A SVG based pie chart contained in a SVG <g> element
  */

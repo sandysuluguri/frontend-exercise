@@ -10,6 +10,7 @@ export default class Sidebar {
    */
   constructor() {
     this._container = document.createElement("div");
+    this._sidebarArray = ['home','chart-line', 'file-alt', 'cog'];
   }
 
   /**
@@ -26,6 +27,7 @@ export default class Sidebar {
     const reportsButton = new IconButton("file-alt");
     const settingsButton = new IconButton("cog");
 
+    
     this._container.appendChild(homeButton.getElement());
     this._container.appendChild(analyticsButton.getElement());
     this._container.appendChild(reportsButton.getElement());

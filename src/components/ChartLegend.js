@@ -53,8 +53,8 @@ export default class ChartLegend {
         boxMargin * 3 + index * (boxSideLength + boxMargin)
       );
 
-      legendGroup.appendChild(box);
-      legendGroup.appendChild(dataTitle);
+      legendPartGroup.appendChild(box);         //changed the lines to add box and dataTitle for each legendPartGroup.
+      legendPartGroup.appendChild(dataTitle);
 
       legendGroup.appendChild(legendPartGroup);
     });

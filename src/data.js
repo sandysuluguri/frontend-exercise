@@ -5,23 +5,8 @@ export default [
     upperRange: 5500
   },
   {
-    title: "",
-    value: 0,
-    upperRange: 1
-  },
-  {
-    title: "",
-    value: 0,
-    upperRange: 1
-  },
-  {
     title: "Sales per square foot",
     value: 12,
     upperRange: 15
-  },
-  {
-    title: "",
-    value: 0,
-    upperRange: 1
   }
 ];

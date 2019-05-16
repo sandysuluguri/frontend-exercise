@@ -11,8 +11,9 @@ export default class Content {
   /**
    * Create a Content component
    */
-  constructor() {
+  constructor(selectedSideBar) {
     this._container = document.createElement("div");
+    this._sideBarSelected = selectedSideBar;
     this._data = [
       {
         title: "Unique Customers",
@@ -22,6 +23,11 @@ export default class Content {
     ];
   }
 
+  addElementsToArray(object){
+    this._data.push(object);
+    console.log(this._data);
+  }
+
   /**
    * Get the component's HTMLElement
    * @return {HTMLElement}
@@ -29,56 +35,80 @@ export default class Content {
   getElement() {
     this._container.className = "content";
 
-    /***************************
-     ***      Customers      ***
-     ***************************/
-    const customersTitle = document.createElement("h3");
-    customersTitle.innerText = "Customers";
+    /**
+     * this is checking for sidebar menu that is clicked and will return the specific container
+     * Implemented it for one menu item. It can be extended for others as well */
 
-    const cardsContainer = document.createElement("div");
-    cardsContainer.className = "range-card-container";
-    const uniqueCustomersCard = new RangeCard(this._data[0]);
+    if(this._sideBarSelected === "chart-line"){
+      const analyticsTitle = document.createElement("h3");
+      analyticsTitle.innerText = "Analytics";
 
-    const addCard = new AddRangeCard();
+      const storeContainer = document.createElement("div");
+      storeContainer.className = "range-card-container";
+      const storeColumn1 = document.createElement("div");
+      storeColumn1.className = "store-column";
+      storeContainer.appendChild(storeColumn1);
 
-    cardsContainer.appendChild(uniqueCustomersCard.getElement());
-    cardsContainer.appendChild(addCard.getElement());
+      const storePieCard = new PieChartCard();
+      storeColumn1.appendChild(storePieCard.getElement());
 
-    /***************************
-     ***        Store        ***
-     ***************************/
-    const storeTitle = document.createElement("h3");
-    storeTitle.innerText = "Store";
+      this._container.appendChild(analyticsTitle);
+      this._container.appendChild(storeContainer);
+      return this._container;
+    } else {
 
-    const storeContainer = document.createElement("div");
-    storeContainer.className = "store-container";
-    const storeColumn1 = document.createElement("div");
-    storeColumn1.className = "store-column";
-    const storeColumn2 = document.createElement("div");
-    storeColumn2.className = "store-column";
+      /***************************
+       ***      Customers      ***
+      ***************************/
+      const customersTitle = document.createElement("h3");
+      customersTitle.innerText = "Customers";
 
-    storeContainer.appendChild(storeColumn1);
-    storeContainer.appendChild(storeColumn2);
+      const cardsContainer = document.createElement("div");
+      cardsContainer.className = "range-card-container";
+      for(let i=0; i<this._data.length;i++){
+      const uniqueCustomersCard = new RangeCard(this._data[i]);
+      
+      const addCard = new AddRangeCard();
 
-    const storePieCard = new PieChartCard();
-    storeColumn1.appendChild(storePieCard.getElement());
+      cardsContainer.appendChild(uniqueCustomersCard.getElement());
+      cardsContainer.appendChild(addCard.getElement());
+      }
+      /***************************
+       ***        Store        ***
+      ***************************/
+      const storeTitle = document.createElement("h3");
+      storeTitle.innerText = "Store";
 
-    const customerRetentionCard = new PercentageCard({
-      title: "Customer Retention",
-      value: 83.4
-    });
-    storeColumn2.appendChild(customerRetentionCard.getElement());
-    const perfectOrderRateCard = new PercentageCard({
-      title: "Perfect Order Rate",
-      value: 97.2
-    });
-    storeColumn2.appendChild(perfectOrderRateCard.getElement());
+      const storeContainer = document.createElement("div");
+      storeContainer.className = "store-container";
+      const storeColumn1 = document.createElement("div");
+      storeColumn1.className = "store-column";
+      const storeColumn2 = document.createElement("div");
+      storeColumn2.className = "store-column";
 
-    this._container.appendChild(customersTitle);
-    this._container.appendChild(cardsContainer);
-    this._container.appendChild(storeTitle);
-    this._container.appendChild(storeContainer);
+      storeContainer.appendChild(storeColumn1);
+      storeContainer.appendChild(storeColumn2);
 
-    return this._container;
+      const storePieCard = new PieChartCard();
+      storeColumn1.appendChild(storePieCard.getElement());
+
+      const customerRetentionCard = new PercentageCard({
+        title: "Customer Retention",
+        value: 83.4
+      });
+      storeColumn2.appendChild(customerRetentionCard.getElement());
+      const perfectOrderRateCard = new PercentageCard({
+        title: "Perfect Order Rate",
+        value: 97.2
+      });
+      storeColumn2.appendChild(perfectOrderRateCard.getElement());
+
+      this._container.appendChild(customersTitle);
+      this._container.appendChild(cardsContainer);
+      this._container.appendChild(storeTitle);
+      this._container.appendChild(storeContainer);
+
+      return this._container;
+    }  
   }
 }

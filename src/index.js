@@ -4,4 +4,4 @@ import "styles/index.css";
 
 // Get the root element and create a new App componenet
 const rootElement = document.getElementById("root");
-new App(rootElement);
+new App(rootElement,"home");
